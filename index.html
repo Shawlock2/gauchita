@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Jogo Plataforma 2D</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #87CEEB;
+    }
+    canvas {
+      display: block;
+      background-image: url('assets/itens/fundo3.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .controls-left, .controls-right {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .controls-left {
+      left: 20px;
+    }
+    .controls-right {
+      right: 20px;
+    }
+    .controls-left button, .controls-right button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background-color: #333;
+      color: white;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div class="controls-left">
+    <button id="left">◀️</button>
+    <button id="right">▶️</button>
+  </div>
+  <div class="controls-right">
+    <button id="jump">🔼</button>
+    <button id="action">🎯</button>
+  </div>
+
+  <audio id="action-sound" src="assets/sons/atack.mp3" preload="auto"></audio>
+  <audio id="action-sound2" src="assets/sons/meme do metal caindo(M4A_128K).m4a" preload="auto"></audio>
+  <audio id="action-sound3" src="assets/sons/item.mp3" preload="auto"></audio>
+  <audio id="action-sound4" src="assets/sons/musga.mp3" preload="auto" loop></audio>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+
+    const spritePlayer = new Image();
+    spritePlayer.src = 'assets/itens/padrao.jpg';
+
+    const arma1 = new Image();
+    arma1.src = 'assets/itens/upg_sword.png';
+
+    const heal = new Image();
+    heal.src = 'assets/itens/sprite_6_2.png';
+
+    const spriteEnemy1 = new Image();
+    const enemyIdleSrc = 'assets/itens/form1.png';
+    const enemyAttackSrc = 'assets/itens/form2.png';
+    spriteEnemy1.src = enemyIdleSrc;
+
+    const tileChao1 = new Image();
+    tileChao1.src = 'assets/itens/tileGrama1.png';
+
+    const screenWidth = 915;
+    const screenHeight = 412;
+    canvas.width = screenWidth;
+    canvas.height = screenHeight;
+
+    const keys = { left: false, right: false, jump: false, action: false };
+
+    const actionSound = document.getElementById('action-sound');
+    const actionSound2 = document.getElementById('action-sound2');
+    const actionSound3 = document.getElementById('action-sound3');
+    const actionSound4 = document.getElementById('action-sound4');
+
+    
+    document.getElementById('left').ontouchstart = () => keys.left = true;
+    document.getElementById('left').ontouchend = () => keys.left = false;
+    document.getElementById('right').ontouchstart = () => keys.right = true;
+    document.getElementById('right').ontouchend = () => keys.right = false;
+    document.getElementById('jump').ontouchstart = () => keys.jump = true;
+    document.getElementById('jump').ontouchend = () => keys.jump = false;
+    document.getElementById('action').ontouchstart = () => keys.action = true;
+    document.getElementById('action').ontouchend = () => keys.action = false;
+
+    const player = {
+      x: 50, y: screenHeight - 100, width: 50, height: 50, color: 'red',
+      velocityX: 0, velocityY: 0, onGround: false,
+      life: 100, invulnerable: false
+    };
+
+    const gravity = 1.5;
+    const friction = 0.9;
+    let currentLevel = 0;
+    let hasKeyItem = false;
+    let lastInteractionTime = 0;
+    const cooldownDuration = 100;
+    const enemyCooldowns = [];
+
+    const levels = [
+    [
+      { x: 0, y: screenHeight - 50, width: screenWidth, height: 50 , type: 'grama'},
+      { x: 200, y: screenHeight - 150, width: 120, height: 20 , type: 'grama'}
+    ],
+    [
+      { x: 0, y: screenHeight - 50, width: screenWidth, height: 50, type: 'grama' },
+      { x: 300, y: screenHeight - 200, width: 100, height: 20, type: 'grama' },
+      { x: 600, y: screenHeight - 250, width: 80, height: 20, type: 'grama' }
+    ],
+    [
+      { x: 0, y: screenHeight - 50, width: screenWidth, height: 50,type: 'grama' },
+      { x: 250, y: screenHeight - 180, width: 100, height: 20 ,type: 'grama'},
+      { x: 500, y: screenHeight - 220, width: 100, height: 20 ,type: 'grama'},
+      { x: 750, y: screenHeight - 160, width: 80, height: 20 ,type: 'grama'}
+    ],
+    [
+      { x: 0, y: screenHeight - 50, width: screenWidth, height: 50 ,type: 'grama'},
+      { x: 150, y: screenHeight - 180, width: 80, height: 20 ,type: 'grama'},
+      { x: 350, y: screenHeight - 210, width: 100, height: 20 ,type: 'grama'},
+      { x: 600, y: screenHeight - 190, width: 120, height: 20 ,type: 'grama'}
+    ],
+    [
+      { x: 0, y: screenHeight - 50, width: screenWidth, height: 50 ,type: 'grama'},
+      { x: 100, y: screenHeight - 140, width: 100, height: 20 ,type: 'grama'},
+      { x: 300, y: screenHeight - 170, width: 100, height: 20 ,type: 'grama'},
+      { x: 500, y: screenHeight - 200, width: 100, height: 20 ,type: 'grama'},
+      { x: 700, y: screenHeight - 230, width: 100, height: 20 ,type: 'grama'}
+    ],
+    [
+      {x: 0, y: screenHeight - 50, width: screenWidth, height: 50,type: 'grama'}
+    ],
+    [
+    {x: 0, y: screenHeight - 50, width: screenWidth, height: 50,type: 'pass'}
+      
+    ]
+  ];
+    const interactables = [ 
+    
+      [{ x: 240, y: screenHeight - 170, width: 36, height: 36, active: true, type: 'arma1' }],
+      [
+        { x: 500, y: screenHeight - 135, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0, grounded: true },
+        { x: 350, y: screenHeight - 220, width: 20, height: 20, active: true, type: 'heal' }
+      ],
+      [
+        { x: 300, y: screenHeight - 240, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0 },
+        { x: 700, y: screenHeight - 240, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0 }
+      ],
+      [
+        { x: 400, y: screenHeight - 135, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0, grounded: true },
+        { x: 350, y: screenHeight - 240, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0 }
+      ],
+      [
+        { x: 400, y: screenHeight - 135, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0, grounded: true },
+        { x: 700, y: screenHeight - 135, width: 60, height: 100, active: true, type: 'enemy', vida: 20, velocityY: 0, grounded: true }
+      ],
+      [
+        { x: 350, y: screenHeight - 70, width: 20, height: 20, active: true, type: 'heal' }
+      ],
+      [
+        {x:0,y:0,width:0,height:0,active:false,type:"none"}
+      ]
+
+    ];
+
+    function isNear(player, obj, distance = 40) {
+      return (
+        Math.abs((player.x + player.width / 2) - (obj.x + obj.width / 2)) < distance &&
+        Math.abs((player.y + player.height / 2) - (obj.y + obj.height / 2)) < distance
+      );
+    }
+
+    function isWithinAttackRange(player, obj, range = 10) {
+      const playerLeft = player.x - range;
+      const playerRight = player.x + player.width + range;
+      const objLeft = obj.x;
+      const objRight = obj.x + obj.width;
+
+      const horizontalOverlap = playerRight > objLeft && playerLeft < objRight;
+      const verticalOverlap = player.y < obj.y + obj.height && player.y + player.height > obj.y;
+
+      return horizontalOverlap && verticalOverlap;
+    }
+
+    function moveEnemies() {
+      const currentInteractables = interactables[currentLevel];
+      currentInteractables.forEach(i => {
+        if (i.type === 'enemy' && i.active) {
+          const speed = 1;
+          if (i.x < player.x) i.x += speed;
+          else if (i.x > player.x) i.x -= speed;
+
+          i.velocityY = (i.velocityY || 0) + gravity;
+          i.y += i.velocityY;
+
+          const platforms = levels[currentLevel];
+          for (let plat of platforms) {
+            if (
+              i.x < plat.x + plat.width &&
+              i.x + i.width > plat.x &&
+              i.y + i.height < plat.y + 20 &&
+              i.y + i.height + i.velocityY >= plat.y
+            ) {
+              i.y = plat.y - i.height;
+              i.velocityY = 0;
+            }
+          }
+        }
+      });
+    }
+
+    function update() {
+      if (keys.left) player.velocityX = -5;
+      else if (keys.right) player.velocityX = 5;
+      else player.velocityX *= friction;
+
+      if (keys.jump && player.onGround) {
+        player.velocityY = -25;
+        player.onGround = false;
+      }
+
+      const now = Date.now();
+
+      if (keys.action && now - lastInteractionTime >= cooldownDuration) {
+        lastInteractionTime = now;
+
+        const currentInteractables = interactables[currentLevel];
+        for (let i of currentInteractables) {
+          if (i.active) {
+            if (i.type === 'arma1' && isNear(player, i)) {
+              hasKeyItem = true;
+              i.active = false;
+              actionSound2.play();
+
+              console.log("Item especial coletado!");
+            } else if (i.type === 'heal' && isNear(player, i)) {
+              player.life = Math.min(player.life + 10, 100);
+              i.active = false;
+              actionSound3.play()
+              console.log("Você recuperou 10 de vida!");
+            } else if (i.type === 'enemy' && isWithinAttackRange(player, i)) {
+              if (hasKeyItem) {
+                i.vida--;
+                spritePlayer.src = 'assets/itens/atack2.jpg';
+                actionSound.play();
+                console.log(`Inimigo atingido! Vida restante: ${i.vida}`);
+                if (i.vida <= 0) {
+                  i.active = false;
+                  console.log("Inimigo eliminado!");
+                }
+              } else {
+                console.log("Você precisa do item especial para atacar o inimigo!");
+              }
+            }
+          }
+        }
+      }
+
+      const currentInteractables = interactables[currentLevel];
+      currentInteractables.forEach(i => {
+        if (i.active && i.type === 'enemy') {
+          const collided = (
+            player.x < i.x + i.width &&
+            player.x + player.width > i.x &&
+            player.y < i.y + i.height &&
+            player.y + player.height > i.y
+          );
+
+          if (collided && !player.invulnerable) {
+            const enemyIndex = currentInteractables.indexOf(i);
+            const lastAttackTime = enemyCooldowns[enemyIndex] || 0;
+            if (now - lastAttackTime >= 200) {
+              player.life--;
+              player.invulnerable = true;
+              player.color = 'white';
+
+              spriteEnemy1.src = enemyAttackSrc;
+              spritePlayer.src = 'assets/itens/atack.jpg'
+              setTimeout(() => {
+                spritePlayer.src = 'assets/itens/padrao.jpg';
+                spriteEnemy1.src = enemyIdleSrc;
+              }, 100);
+
+              const dx = player.x + player.width / 2 - (i.x + i.width / 2);
+              player.x += dx > 0 ? 20 : -20;
+
+              setTimeout(() => {
+                player.color = 'red';
+                player.invulnerable = false;
+              }, 100);
+
+              enemyCooldowns[enemyIndex] = now;
+              console.log(`Você foi atingido! Vida restante do jogador: ${player.life}`);
+              if (player.life <= 0) {
+                alert("Game Over!");
+                window.location.reload();
+              }
+            }
+          }
+        }
+      });
+
+      player.velocityY += gravity;
+      player.x += player.velocityX;
+      player.y += player.velocityY;
+
+      const platforms = levels[currentLevel];
+      player.onGround = false;
+      for (let plat of platforms) {
+        if (
+          player.x < plat.x + plat.width &&
+          player.x + player.width > plat.x &&
+          player.y + player.height < plat.y + 20 &&
+          player.y + player.height + player.velocityY >= plat.y
+        ) {
+          player.y = plat.y - player.height;
+          player.velocityY = 0;
+          player.onGround = true;
+        }
+      }
+
+      if (player.x > screenWidth) {
+        if (currentLevel < levels.length - 1) {
+          currentLevel++;
+          player.x = 0;
+          player.y = screenHeight - 100;
+          player.velocityX = 0;
+          player.velocityY = 0;
+        } else {
+          player.x = screenWidth - player.width;
+        }
+      }
+
+      if (player.x < 0) {
+        if (currentLevel > 0) {
+          currentLevel--;
+          player.x = screenWidth - player.width;
+          player.y = screenHeight - 100;
+          player.velocityX = 0;
+          player.velocityY = 0;
+        } else {
+          player.x = 0;
+        }
+      }
+
+      moveEnemies();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const platforms = levels[currentLevel];
+      platforms.forEach(p => {
+        const cols = Math.ceil(p.width / 64);
+        const rows = Math.ceil(p.height / 64);
+        for (let i = 0; i < cols; i++) {
+          for (let j = 0; j < rows; j++) {
+            if (p.type === 'grama') {
+              ctx.drawImage(tileChao1, p.x + i * 64, p.y + j * 64, 64, 48);
+            }
+            if(p.type == "pass"){
+              window.location.href = '/main.html'
+            }
+          }
+        }
+      });
+
+      const currentInteractables = interactables[currentLevel];
+      currentInteractables.forEach(i => {
+        if (i.active) {
+          if (i.type === 'arma1') {
+            ctx.drawImage(arma1, i.x, i.y, i.width, i.height);
+          } else if (i.type === 'heal') {
+            ctx.drawImage(heal, i.x, i.y, i.width, i.height);
+          } else if (i.type === 'enemy') {
+            ctx.drawImage(spriteEnemy1, i.x, i.y, i.width, i.height);
+            ctx.fillStyle = 'white';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`❤️ ${i.vida}`, i.x + i.width / 2, i.y - 5);
+          }
+          else if( i.type === "none"){
+            window.location.replace("/main.html")
+
+          }
+        }
+      });
+
+  
+      ctx.drawImage(spritePlayer,player.x, player.y, player.width, player.height);
+
+      ctx.fillStyle = 'black';
+      ctx.font = '20px Arial';
+      ctx.fillText(`❤️ ${player.life}`, 10, 30);
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+
+  </script>
+</body>
+</html>

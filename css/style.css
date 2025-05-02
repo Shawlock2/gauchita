@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #87CEEB;
+}
+
+canvas {
+  display: block;
+  background-image: url('assets/fundo3.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.controls-left, .controls-right {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.controls-left {
+  left: 20px;
+}
+
+.controls-right {
+  right: 20px;
+}
+
+.controls-left button, .controls-right button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #333;
+  color: white;
+  font-size: 18px;
+}

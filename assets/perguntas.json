@@ -1,0 +1,299 @@
+[
+    {
+      "ask": "Qual o principal fator que contribui para o efeito estufa na atmosfera terrestre?",
+      "response": "Dióxido de carbono",
+      "error": ["Metano", "Óxidos de nitrogênio"]
+    },
+    {
+      "ask": "Quem foi o responsável pela formulação da teoria da relatividade geral?",
+      "response": "Albert Einstein",
+      "error": ["Isaac Newton", "Galileu Galilei"]
+    },
+    {
+      "ask": "Qual o nome do processo pelo qual as plantas convertem luz solar em energia química?",
+      "response": "Fotossíntese",
+      "error": ["Respiração celular", "Fermentação"]
+    },
+    {
+      "ask": "Que estrutura celular é responsável pela produção de energia nas células eucarióticas?",
+      "response": "Mitocôndria",
+      "error": ["Ribossomos", "Lisossomos"]
+    },
+    {
+      "ask": "Qual foi o tratado que encerrou oficialmente a Primeira Guerra Mundial?",
+      "response": "Tratado de Versalhes",
+      "error": ["Tratado de Tordesilhas", "Tratado de Paris"]
+    },
+    {
+      "ask": "Qual o princípio da física que afirma que a energia não pode ser criada nem destruída?",
+      "response": "Conservação da energia",
+      "error": ["Lei de Coulomb", "Lei da gravitação universal"]
+    },
+    {
+      "ask": "Como é chamado o fenômeno de separação de luz branca em várias cores?",
+      "response": "Dispersão luminosa",
+      "error": ["Refração", "Reflexão"]
+    },
+    {
+      "ask": "Qual filósofo grego foi tutor de Alexandre, o Grande?",
+      "response": "Aristóteles",
+      "error": ["Platão", "Sócrates"]
+    },
+    {
+      "ask": "Qual é o nome do evento que marcou o início da Revolução Francesa?",
+      "response": "Queda da Bastilha",
+      "error": ["Proclamação da República", "Guerra dos Trinta Anos"]
+    },
+    {
+      "ask": "Como se chama a camada externa da Terra composta por placas tectônicas?",
+      "response": "Litosfera",
+      "error": ["Atmosfera", "Hidrosfera"]
+    },
+    {
+      "ask": "Qual é o nome da franquia de jogos favorita do Rafael?",
+      "response": "Resident Evil",
+      "error": ["Call of Duty", "Final Fantasy"]
+    },
+    {
+      "ask": "Qual dessas não é uma música do Bad Bunny?",
+      "response": "Una Ratita",
+      "error": ["Me Porto Bonito", "Gato de Noche"]
+    },
+    {
+        "ask":"Em que mês os dois começaram a se falar?",
+        "response":"Outubro",
+        "error":["Setembro","Agosto"]
+    },
+    {
+        "ask":"Qual obra ambos estavam acompanhando quando começaram a se falar?",
+        "response":"Kymetsu no yaiba",
+        "error":["Chainsaw man","Shingeki no Kyojin"]
+    },
+    {
+        "ask": "Qual é a fórmula química da água?",
+        "response": "H2O",
+        "error": ["CO2", "NaCl"]
+    },
+    {
+        "ask": "Quem pintou o teto da Capela Sistina?",
+        "response": "Michelangelo",
+        "error": ["Da Vinci", "Botticelli"]
+    },
+    {
+        "ask": "Qual país tem a maior população do mundo?",
+        "response": "China",
+        "error": ["Índia", "EUA"]
+    },
+    {
+        "ask": "Qual é o menor país do mundo?",
+        "response": "Vaticano",
+        "error": ["Mônaco", "Luxemburgo"]
+    },
+    {
+        "ask": "Quem descobriu o Brasil?",
+        "response": "Pedro Álvares Cabral",
+        "error": ["Cristóvão Colombo", "Vasco da Gama"]
+    },
+    {
+        "ask": "Qual é o símbolo químico do ferro?",
+        "response": "Fe",
+        "error": ["Ir", "Fr"]
+    },
+    {
+        "ask": "Qual planeta é conhecido como planeta vermelho?",
+        "response": "Marte",
+        "error": ["Vênus", "Mercúrio"]
+    },
+    {
+        "ask": "Qual o nome do presidente dos EUA em 2021?",
+        "response": "Joe Biden",
+        "error": ["Donald Trump", "Barack Obama"]
+    },
+    {
+        "ask": "Qual é o maior órgão do corpo humano?",
+        "response": "Pele",
+        "error": ["Cérebro", "Fígado"]
+    },
+    {
+        "ask": "Qual a capital do Japão?",
+        "response": "Tóquio",
+        "error": ["Kyoto", "Osaka"]
+    },
+    {
+        "ask": "Qual é a moeda oficial do Reino Unido?",
+        "response": "Libra Esterlina",
+        "error": ["Euro", "Dólar"]
+    },
+    {
+        "ask": "Qual o maior deserto do mundo?",
+        "response": "Antártida",
+        "error": ["Saara", "Gobi"]
+    },
+    {
+        "ask": "Qual a fórmula da velocidade média?",
+        "response": "Δs/Δt",
+        "error": ["m/s²", "F×d"]
+    },
+    {
+        "ask": "Quem escreveu '1984'?",
+        "response": "George Orwell",
+        "error": ["Aldous Huxley", "Ray Bradbury"]
+    },
+    {
+        "ask": "Qual é o idioma oficial da Argentina?",
+        "response": "Espanhol",
+        "error": ["Português", "Inglês"]
+    },
+    {
+        "ask": "Qual é o maior animal terrestre?",
+        "response": "Elefante africano",
+        "error": ["Rinoceronte", "Girafa"]
+    },
+    {
+        "ask": "Qual cidade é conhecida como a Cidade Luz?",
+        "response": "Paris",
+        "error": ["Londres", "Roma"]
+    },
+    {
+        "ask": "Qual a capital da Austrália?",
+        "response": "Camberra",
+        "error": ["Sydney", "Melbourne"]
+    },
+    {
+        "ask": "Quem criou a linguagem Java?",
+        "response": "James Gosling",
+        "error": ["Dennis Ritchie", "Guido van Rossum"]
+    },
+    {
+        "ask": "Qual o ponto mais alto do mundo?",
+        "response": "Everest",
+        "error": ["K2", "Aconcágua"]
+    },
+    {
+        "ask": "Qual é o resultado da raiz quadrada de 144?",
+        "response": "12",
+        "error": ["14", "10"]
+      },
+      {
+        "ask": "Como se chama um polígono com oito lados?",
+        "response": "Octógono",
+        "error": ["Hexágono", "Heptágono"]
+      },
+      {
+        "ask": "Qual é o valor de π (pi) aproximado?",
+        "response": "3,14",
+        "error": ["2,71", "1,62"]
+      },
+      {
+        "ask": "Qual propriedade diz que a ordem dos fatores não altera o produto?",
+        "response": "Comutativa",
+        "error": ["Associativa", "Distributiva"]
+      },
+      {
+        "ask": "Como se chama um número que só é divisível por 1 e por ele mesmo?",
+        "response": "Primo",
+        "error": ["Ímpar", "Par"]
+      },
+      {
+        "ask": "Qual é o resultado da raiz quadrada de 144?",
+        "response": "12",
+        "error": ["14", "10"]
+      },
+      {
+        "ask": "Como se chama um polígono com oito lados?",
+        "response": "Octógono",
+        "error": ["Hexágono", "Heptágono"]
+      },
+      {
+        "ask": "Qual é o valor de π (pi) aproximado?",
+        "response": "3,14",
+        "error": ["2,71", "1,62"]
+      },
+      {
+        "ask": "Qual propriedade diz que a ordem dos fatores não altera o produto?",
+        "response": "Comutativa",
+        "error": ["Associativa", "Distributiva"]
+      },
+      {
+        "ask": "Como se chama um número que só é divisível por 1 e por ele mesmo?",
+        "response": "Primo",
+        "error": ["Ímpar", "Par"]
+      },
+      {
+        "ask": "Qual é o tempo verbal da frase 'She is reading a book'?",
+        "response": "Present continuous",
+        "error": ["Past perfect", "Future simple"]
+      },
+      {
+        "ask": "O que significa a palavra 'apple' em português?",
+        "response": "Maçã",
+        "error": ["Banana", "Uva"]
+      },
+      {
+        "ask": "Qual é o comparativo de 'good'?",
+        "response": "Better",
+        "error": ["Gooder", "More good"]
+      },
+      {
+        "ask": "Como se diz 'cachorro' em inglês?",
+        "response": "Dog",
+        "error": ["Cat", "Duck"]
+      },
+      {
+        "ask": "Qual é o plural de 'child'?",
+        "response": "Children",
+        "error": ["Childs", "Childes"]
+      },
+      {
+        "ask": "Qual país tem a maior reserva de petróleo do mundo?",
+        "response": "Venezuela",
+        "error": ["Arábia Saudita", "Estados Unidos"]
+      },
+      {
+        "ask": "Qual é a capital da Nova Zelândia?",
+        "response": "Wellington",
+        "error": ["Auckland", "Christchurch"]
+      },
+      {
+        "ask": "Qual é o elemento químico com maior número atômico conhecido?",
+        "response": "Oganessônio",
+        "error": ["Urânio", "Polônio"]
+      },
+      {
+        "ask": "Qual o nome da galáxia mais próxima da Via Láctea?",
+        "response": "Andrômeda",
+        "error": ["Triângulo", "Órion"]
+      },
+      {
+        "ask": "Quem pintou 'A Escola de Atenas'?",
+        "response": "Rafael",
+        "error": ["Michelangelo", "Da Vinci"]
+      },
+      {
+        "ask": "Qual é o idioma oficial do Irã?",
+        "response": "Persa",
+        "error": ["Árabe", "Turco"]
+      },
+      {
+        "ask": "Qual é o rio mais extenso do mundo?",
+        "response": "Amazonas",
+        "error": ["Nilo", "Yangtzé"]
+      },
+      {
+        "ask": "Qual país tem a maior população muçulmana?",
+        "response": "Indonésia",
+        "error": ["Egito", "Paquistão"]
+      },
+      {
+        "ask": "Qual matemático é considerado o 'pai da álgebra'?",
+        "response": "Al-Khwarizmi",
+        "error": ["Pitágoras", "Euclides"]
+      },
+      {
+        "ask": "Qual é o ponto mais profundo dos oceanos?",
+        "response": "Fossa das Marianas",
+        "error": ["Fossa de Tonga", "Dorsal Mesoatlântica"]
+      }
+      
+  ]
+  

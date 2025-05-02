@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizinho</title>
+    <link rel="stylesheet" href="../css/quiz-style.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz</h1>
+        <p>Bem, já falei que é um quiz né, veja ai como fica</p>
+        <span id="visor"></span>
+    </header>
+    <main id="mainTag">
+        <section id="formulario">
+            <span>Nome do jogador(a)</span>
+            <input type="text" placeholder="Ex: Bruna" id="jogador">
+            <button onclick="main()">Iniciar</button>
+        </section>
+        <section id="perguntas"></section>
+        <section id="respostas"></section>
+    </main>
+    <script src="../scripts/quiz.js"></script>
+</body>
+</html>
